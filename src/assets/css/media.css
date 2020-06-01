@@ -1,0 +1,16 @@
+/* pad */
+@media screen and (min-width:768px) and (max-width:991px){
+  .pop-img{height:200px !important;} /*热门去处图片*/
+  .swipe{ height:350px !important;} /*首页轮播*/
+  .grid-item img{width:80px !important;height:80px !important;} /*宫格图标*/
+} 
+/* phone */
+@media screen and (max-width:767px){
+
+}
+/* PC */
+@media screen and (min-width:991px){
+  .swipe{ height:400px !important;} /*首页轮播*/
+  .pop-img{height:300px !important;} /*热门去处图片*/
+  .grid-item img{width:100px !important;height:100px !important;} /*宫格图标*/
+}
