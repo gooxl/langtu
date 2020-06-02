@@ -1,9 +1,14 @@
 <template>
   <!-- 产品列表 -->
   <div class="list">
-      <div class="list-content" v-for="item of list" :key="item.pid">
-        <router-link :to="`/product?pid=${item.pid}`">
-          <img class="list-content-img" :src="'http://127.0.0.1:3000/'+item.md"/>
+    <Loading2 v-if="show"/>
+    <van-list v-else v-model="loading" :finished="finished"
+    finished-text="没有更多了" @load="onLoad">
+      <div class="list-content" v-for="(item,index) in list" :key="index" >
+        <router-link tag="div" :to="`/product/${item.pid}`">
+
+          <img class="list-content-img" :src="'http://127.0.0.1:3000/'+item.md"
+          />
           <div class="list-days">{{item.days}}天</div>
           <div class="list-content-right"  >
             <div class="title">{{item.title}}</div>
@@ -25,20 +30,49 @@
           </div>
         </router-link>  
       </div>
-    
+    </van-list>
   </div>
 </template>
 
 <script>
 export default {
-  props:["list"],  //接收productList的数据
+  // props:["list"],  //接收productList的数据
   data(){
     return {
-     
+      show:true,
+      list:[], //产品列表
+      pno:0,   //页码
+      pageSize:6,  //页大小
+      loading: false,  //加载状态
+      finished: false, //是否加载完成 
     }
   },
   methods:{
-    
+    loadMore(){
+      this.pno++;
+        this.loading=true;
+        this.axios.get('http://127.0.0.1:3000/getProductList?pno='
+        +this.pno+"&pageSize="+this.pageSize).then(res=>{
+          var rows=this.list.concat(res.data.data);
+          this.list=rows;
+          // console.log(this.list)
+          this.show=false;
+          this.loading = false;
+          if(this.list.length>=14){
+            this.finished=true
+          }
+        })
+    },
+    onLoad(){ //加载分页数据
+      setTimeout(()=>{
+        this.loadMore();
+      },1000)
+    },
+  },
+  mounted(){
+    //  获取产品数据
+    this.loadMore();
+
   }
 }
 </script>
@@ -98,7 +132,7 @@ export default {
   padding-top:.5rem;
 }
 .list-content-right-middle span{
-  margin-right:.3rem;
+  margin:0 .3rem .3rem 0;
 }
 /* 点评&门票 */
 .list-content-right-bottom{

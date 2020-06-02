@@ -29,19 +29,21 @@
 </template>
 
 <script>
-import swipe from "../components/product/swipe"
-import baseDesc from "../components/product/base-desc"
-import info from "../components/product/info"
+import swipe from "@/components/product/swipe"
+import baseDesc from "@/components/product/base-desc"
+import info from "@/components/product/info"
 
 export default {
+  name:"product",
   components:{
     swipe,
     baseDesc,
     info,
   },
+  props:['pid'],
   data(){
     return {
-      pid:this.$route.query.pid,  //产品id
+      // pid:this.$route.query.pid,  //产品id
       productInfo:[],  //产品数据
       price:0,         //产品价钱
       productImg:[],   //产品图片
@@ -52,13 +54,14 @@ export default {
   },
   methods:{
     getProductInfo(){ //获取产品数据
-      this.axios.get('/getProductInfo?pid='+this.pid).then(res=>{
+      this.axios.get('http://127.0.0.1:3000/getProductInfo?pid='+this.pid).then(res=>{
         this.productInfo=res.data.data;
+        // console.log(this.productInfo)
         this.price=res.data.data[0].price;
       })
     },
     getImg(){ //获取轮播图
-      this.axios.get('/getProductImg?pid='+this.pid).then(res=>{
+      this.axios.get('http://127.0.0.1:3000/getProductImg?pid='+this.pid).then(res=>{
         this.productImg=res.data.data;
       })
     },
@@ -89,7 +92,7 @@ export default {
     }
       
   },
-  created(){
+  mounted(){
     this.getProductInfo();
     this.getImg();
 

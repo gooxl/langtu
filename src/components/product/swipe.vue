@@ -3,8 +3,8 @@
   <div class="app-swipe">
     <!-- 头部两按钮 -->
     <div class="header-btn">
-      <router-link to>
-        <van-icon name="arrow-left" color="#fff" size="30" class="btn-left" @click="$router.back(-1)"/>
+      <router-link to="/productList">
+        <van-icon name="arrow-left" color="#fff" size="30" class="btn-left"/>
       </router-link>
       <van-icon name="ellipsis" color="#fff" size="30" class="btn-right"/>
     </div>

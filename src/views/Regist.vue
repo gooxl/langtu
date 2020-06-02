@@ -1,4 +1,5 @@
 <template>
+  <!-- 注册页面 -->
   <div class="regist">
     <!-- 头 -->
     <div class="placeholder"></div>

@@ -21,6 +21,13 @@
 <script>
 export default {
   props:["list"],  //接收product传的数据
+  created(){
+    // this.axios.get('http://127.0.0.1:3000/getProductInfo?pid='+this.pid).then(res=>{
+    //   this.productInfo=res.data.data;
+    //   console.log(this.productInfo)
+    //   this.price=res.data.data[0].price;
+    // },
+  }
 }
 </script>
 

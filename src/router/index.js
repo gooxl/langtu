@@ -6,10 +6,10 @@ import travels from '../views/Travels'
 import mine from '@/views/Mine'   //也可以使用@表示src目录
 import place from '@/views/Place'   
 import recommend from '@/views/Play-recommend'   
-import product from '@/views/Product'   
+import product from '@/views/Product/Product'   
 import placeOrder from '../views/PlaceOrder'   
-import productList from '../views/productList'  
-import traDetail from '../views/traDetail'  
+import productList from '../views/Product/productList'  
+import traDetail from '../views/Product/traDetail'  
 import CommentList from '../views/CommentList'  
 import Login from '../views/Login'  
 import Regist from '../views/Regist'  
@@ -27,8 +27,8 @@ Vue.use(VueRouter)
   {path: "/place",component: place},
   {path: "/recommend",component: recommend},
   {path: "/placeOrder",component: placeOrder},
-  {path: "/product",component: product},
-  {path: "/tradetail",component: traDetail},
+  {path: "/product/:pid",component: product,props:true},
+  {path: "/tradetail",component: traDetail,},
   {path: "/commentList",component: CommentList},
   {path: "/login",component: Login},
   {path: "/regist",component: Regist},

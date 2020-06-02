@@ -31,7 +31,7 @@ export default {
     }
   },
   created(){
-
+    console.log(this.popPlace)
   }
 }
 </script>
@@ -74,7 +74,8 @@ export default {
 /* 标题内容 */
 .pop-text{
   padding-top:.3rem;
-
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size:.8rem;
   text-align:left;
   color:#666;

@@ -1,9 +1,9 @@
 <template>
   <div class="grid">  
-    <div class="grid-item" v-for="item of gridInfo" :key="item._id">
+    <router-link tag="div" to="/productList" class="grid-item" v-for="item of gridInfo" :key="item._id">
       <img :src="item.img" ></img>
-      <p>{{item.keyword}}</p>
-    </div>
+      <p>{{item.tname}}</p>
+    </router-link>
   </div>
 </template>
 
