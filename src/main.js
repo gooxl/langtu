@@ -20,12 +20,12 @@ Vue.prototype.qs=qs; //配置到Vue的原型中
 /*Vant*/ 
 import {Tabbar,TabbarItem,Icon,Grid,GridItem,Tab,Tabs,Tag,Search
 ,NavBar,Calendar,Cell,CellGroup,Stepper,SubmitBar,GoodsAction, GoodsActionIcon,
- GoodsActionButton,List,Popup,Field,Button,Divider,Rate} from 'vant';
+ GoodsActionButton,List,Popup,Field,Button,Divider,Rate,PullRefresh} from 'vant';
 import "vant/lib/index.css";
 Vue.use(Tabbar).use(TabbarItem).use(Icon).use(Grid).use(GridItem).use(Tab)
 .use(Tabs).use(Tag).use(Search).use(NavBar).use(Calendar).use(Cell).use(CellGroup)
 .use(Stepper).use(SubmitBar).use(GoodsAction).use(GoodsActionIcon).use(GoodsActionButton)
-.use(List).use(Popup).use(Field).use(Button).use(Divider).use(Rate);
+.use(List).use(Popup).use(Field).use(Button).use(Divider).use(Rate).use(PullRefresh);
 /* 瀑布*/
 import waterfall from 'vue-waterfall2'
 Vue.use(waterfall)
@@ -34,7 +34,9 @@ import "./assets/iconfont/iconfont.css"
 /* better-scroll 组件*/ 
 import Scroller from './components/betterScroll/Scroller'
 Vue.component('Scroller',Scroller)
-
+/*loading组件 */
+import Loading2 from '@/components/Loading/loading2' 
+Vue.component('Loading2',Loading2)
 // 日期格式过滤器
 Vue.filter("ct",function(val){
   var date=new Date(val);

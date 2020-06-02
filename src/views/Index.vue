@@ -53,25 +53,26 @@ export default {
 
   },
   created(){
-  
+    // 获取宫格数据
+    this.axios.get('http://127.0.0.1:3000/getGridInfo').then(res=>{
+      this.gridInfo=res.data.data;
+    })
   },
-  activated(){  //被 keep-alive 缓存的组件激活时调用。此生命周期函数
+  mounted(){  
     var cityId=this.$store.state.city.id;
     if(this.prevCityId===cityId){return;} //如果上次城市id等于城市id，说明没有切换城市
 
     this.axios.get('/qunarApi/cityDetail/cityid/'+cityId).then(res=>{
-      console.log(res.data.cityDetail)
+      // console.log(res.data.cityDetail)
       this.prevCityId=cityId;   
       this.swipeImg=res.data.cityDetail[0].cityDetail.banners
-      this.gridInfo=res.data.cityDetail[0].cityDetail.icons
       this.popPlace=res.data.cityDetail[0].cityDetail.hostList
       this.tabList=res.data.cityDetail[0].cityDetail.likeList
       this.hotList=res.data.cityDetail[0].cityDetail.weekendTrip
-
     })
-    // this.axios.get('/qunarApi/hostList/cityname/北京').then(res=>{
-    //   console.log(res.data)
-    // })
+    this.axios.get('/qunarApi/hostList/cityid/'+cityId).then(res=>{
+      // console.log(res.data)
+    })
   }
 
 }

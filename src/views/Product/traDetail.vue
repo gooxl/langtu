@@ -9,8 +9,8 @@
 
 <script>
 import swipe from "@/components/traDetail/swipe"  //表示src目录
-import detail from "../components/traDetail/detail"
-import comment from "../components/traDetail/comment"
+import detail from "@/components/traDetail/detail"
+import comment from "@/components/traDetail/comment"
 export default {
   components:{
     swipe,

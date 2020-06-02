@@ -1,4 +1,5 @@
 <template>
+  <!-- 登录页 -->
   <div class="login">
     <!-- 头 -->
     <div class="placeholder"></div>

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import orderInfo from "../components/order/order-info"
+import orderInfo from "@/components/order/order-info"
 
 export default {
   components:{
@@ -55,7 +55,7 @@ export default {
   },
   methods:{
     loadMore(){ //加载产品数据
-      this.axios.get('/getProductInfo?pid='+this.pid).then(res=>{
+      this.axios.get('http://127.0.0.1:3000/getProductInfo?pid='+this.pid).then(res=>{
         this.productInfo=res.data.data;
         this.pname=res.data.data[0].title;
         this.price=res.data.data[0].price;
