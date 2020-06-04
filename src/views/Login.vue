@@ -70,12 +70,14 @@ export default {
         return;
       }
       var obj={uname:this.uname,upwd:this.upwd};
-      this.axios.get("/login",{params:obj}).then(res=>{
+      this.axios.get("http://127.0.0.1:3000/login",{params:obj}).then(res=>{
         if(res.data.code==-1){
           this.$toast("用户名或密码有误")
         }else{
           this.$toast("登录成功");
-          this.$router.go(-1) //跳转加登录前页面
+          var uname=res.data.data[0].uname;
+          sessionStorage.setItem('uname',uname);
+          this.$router.push('/mine') //跳转加登录前页面
         }
       })
     }

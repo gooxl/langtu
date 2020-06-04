@@ -13,6 +13,7 @@ import traDetail from '../views/Product/traDetail'
 import CommentList from '../views/CommentList'  
 import Login from '../views/Login'  
 import Regist from '../views/Regist'  
+import Admin from '../views/Admin'  
 import City from '@/components/city/City'  
 
 
@@ -33,6 +34,7 @@ Vue.use(VueRouter)
   {path: "/login",component: Login},
   {path: "/regist",component: Regist},
   {path: "/city",component: City},
+  {path: "/admin",component: Admin},
   {path: "/*",component:NotFound },
 
 ]

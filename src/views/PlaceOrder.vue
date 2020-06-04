@@ -88,7 +88,7 @@ export default {
         this.$toast("请输入邮箱")
         return;
       }
-      // var remarks=(!this.remarks?"null":this.remarks);
+ 
       var remarks=this.remarks;
       var pid=parseInt(this.pid);
       var userName=this.uname;

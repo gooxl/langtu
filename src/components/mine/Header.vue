@@ -1,33 +1,35 @@
 <template>
   <div class="header">
-    <mt-header title="个人中心" class="mt-header">
-      <mt-button icon="more" slot="right"></mt-button>
-    </mt-header>
-    <div class="body">
-      <div class="body-item">
-        <img src="../../../public/img/avatar.jpg" alt="" class="avatar">
-        <div class="umsg" >
-          <div>用户A</div>
-          <div>UID:123214342</div>
+    <div v-for="item of list" :key="item.uid">
+      <div class="body" v-if="list.length>0" >
+        <div class="body-item">
+          <img v-if="item.avatar" :src="item.avatar" alt="" class="avatar">
+          <img v-else src="@/assets/img/avatar.png" alt="" class="avatar">
+          <div class="umsg" >
+            <span v-if="item.nickName">{{item.nickName}}</span>     
+            <span v-else>{{item.uname}}</span>     
+            <span v-show="item.isAdmin">管理员</span>
+          </div>
         </div>
+         <div class="body-btn"  v-if="item.isAdmin">
+            <mt-button plain size="small" @click="jumpAdmin" 
+            >进入管理后台</mt-button>
+          </div>
       </div>
-      <div class="body-btn" >
-          <mt-button plain size="small" @click="jumpLogin" 
-          v-show="isLogin">注册/登录</mt-button>
-      </div>
-    </div>
-    <div class="footer" v-show="this.isLogin">
-      <div>
-        <div>7</div>
-        <div>关注</div>
-      </div>
-      <div>
-        <div>0</div>
-        <div>粉丝</div>
-      </div>
-      <div>
-        <div>0</div>
-        <div>访客</div>
+     
+      <div class="footer" >
+        <div>
+          <div>{{item.follow}}</div>
+          <div>关注</div>
+        </div>
+        <div>
+          <div>{{item.fans}}</div>
+          <div>粉丝</div>
+        </div>
+        <div>
+          <div>{{item.callers}}</div>
+          <div>访客</div>
+        </div>
       </div>
     </div>
   </div>
@@ -36,19 +38,28 @@
 <script>
 export default {
   name:'MineHeader',
-  props:["isLogin"],
   data(){
     return{
+      list:[],
 
     }
   },
   methods:{
-    jumpLogin(){
-      this.$router.push("/login")
+    loadMore(){
+      var uname=sessionStorage.getItem('uname')
+      this.axios.get('http://127.0.0.1:3000/getUser?uname='+uname).then(res=>{
+        this.list=res.data.data;
+        console.log(this.list)
+      })
+    },
+    jumpAdmin(){
+      this.$router.push("/admin")
     }
   },
-  mounted(){
-    console.log(this.isLogin)
+  created(){
+    this.loadMore()
+
+  
   }
 }
 </script>
@@ -56,16 +67,12 @@ export default {
 <style scoped>
 /* 父元素 */
 .header{
-  height:220px;
+  height:11rem;
   background-image:linear-gradient(to right,#ff0,#ffda44) ;
   border-bottom-left-radius:25%;
   border-bottom-right-radius:25%;
 }
-.mt-header{
-  background-image:linear-gradient(to right,#ff0,#ffda44) ;
-  font-weight:bold;
-  color:#000
-}
+
 .body{
   display: flex;
   justify-content: space-between;
@@ -94,15 +101,15 @@ export default {
   font-weight: bold;
   font-size:1.2rem
 }
-/* UID */
+/* 用户身份 */
 .umsg :last-child{
   padding-top:.5rem;
   font-size:.8rem;
+
 }
 /* 登录注册按钮 */
 .body-btn{
-  display: flex;
-  flex-direction: column;
+
   padding-right:1rem;
   padding-top:1rem;
 }
