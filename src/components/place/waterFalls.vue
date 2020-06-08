@@ -6,22 +6,23 @@
     <waterfall :col="col" :data="data" @loadmore="loadmore" >
       <template> 
         <div class="fall-item" v-for="(item,index) in data" :key="index">
-        <router-link :to="`/tradetail?nid=${item.nid}`">
+        <router-link :to="`/tradetail?cid=${item.commentId}&pid=${pid}`">
           <div class="fall-img">
-            <img  v-lazy="item.lg" alt="加载错误">
-            <div class="item-location">
+            <img v-for="(innerItem,i) of item.imgs.slice(0,1)" :key="i" v-lazy="innerItem.big" alt="加载错误">
+            <!-- 地点 -->
+            <!-- <div class="item-location">
               <van-icon name="location-o" />
               <span>{{item.city}}·{{item.position}}</span>
-            </div>
+            </div> -->
           </div>
           <div class="item-body">
             <div class="item-title">{{item.content}}</div>
             <div class="item-footer">
               <div class="item-footer-left">
-                <div v-if="item.avatar" class="avatar"
-                :style="{backgroundImage : `url(${item.avatar})`}"
+                <div v-if="item.headImg" class="avatar"
+                :style="{backgroundImage : `url(${item.headImg})`}"
                 ></div>
-                <div class="name">{{item.uname}}</div>
+                <div class="name">{{item.author}}</div>
               </div>
               <div class="like">
                 <van-icon name="like-o"/>
@@ -35,18 +36,19 @@
     </waterfall>
 
     <!-- loading -->
-    <loading :show="loading"/>
+    <loading v-if="loading"/>
     
     </div><!-- 瀑布end -->
   </div>
 </template>
 
 <script>
-import loading from "@/components/Loading/loading";
+import loading from "@/components/Loading/loading2";
 
 
 export default {
   name:"place-waterFalls",
+  props:["pid"],
   components: {
     loading
   },
@@ -55,7 +57,7 @@ export default {
       data: [],
       col: 2,  //列数
       loading: true,  //加载状态
-
+      
     };
   },
   computed: {
@@ -78,20 +80,21 @@ export default {
       }, 100);
     },
     loadMore(){   //获取内容
-      this.axios.get('/getTraNotes').then(res=>{
-        this.data=res.data.data;
-        this.loading=false;
+      this.axios.get('/qunarApi/comments?sightId='+this.pid).then(res=>{
+        if(res.data.answer.status==200){
+          this.data=res.data.answer.body.data.commentList
+          this.loading = false;
+        }
       })
     },
     jump(e){
       var id=e.target.dataset.id;
-      console.log(e)
       this.$router.push('/tradetail?id='+id);
     }
   },
   created() {
     this.loadMore();
-    // this.data = this.originData;
+
 
     
   }

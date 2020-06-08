@@ -20,7 +20,7 @@ export default {
  },
  data(){
    return{
-     list:[],
+
    };
  },
  methods:{
@@ -31,7 +31,6 @@ export default {
     }
   },
   created(){
-    console.log(this.popPlace)
   }
 }
 </script>

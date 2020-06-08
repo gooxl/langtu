@@ -1,43 +1,45 @@
 <template>
   <!-- 游记详情 -->
   <div class="detail">
-    <div v-for="(item,index) in list" :key="index">
       <div class="header">
         <div class="header-left">
           <div class="avatar">
-            <img :src="item.avatar" alt="">
+            <img :src="this.list.headImg" alt="">
           </div>
           <div>
-            <div>{{item.uname}}</div>
-            <span>{{item.date | ct}}</span>
+            <span>{{this.list.date}}</span>
+            <div>{{this.list.author}}</div>
           </div>
         </div>
-        <div class="like">
-          <van-icon name="like-o" color="red"/>
-          <span>{{item.likes}}</span>
+        <!-- 评分 -->
+        <div class="score">
+          <van-rate v-model="this.list.score" allow-half void-icon="star" 
+          void-color="#eee" readonly :size="18"/>
         </div>
       </div>
       <!-- 定位 -->
       <div class="opsition">
         <div>
           <van-icon name="location" />
-          <span>{{item.city}}</span>
+          <span>{{$store.state.city.name}}</span>
         </div>
         <div>
-          <span>{{item.position}}</span>
+          <span>{{this.list.sightName}}</span>
           <van-icon name="arrow" />
         </div>
       </div>
       <!-- 内容 -->
-      <div class="content">{{item.content}}</div>
+      <div class="content">{{this.list.content}}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props:["list"]
-
+  props:["list"],
+  mounted(){
+  }
+  
 }
 </script>
 

@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 figure { 
-  position: absolute;
+  position: fixed;
   margin: auto;
   top: 0; bottom: 0; left: 0; right: 0;
   width: 6.250em; height: 6.250em;

@@ -3,14 +3,13 @@
   <div class="app-swipe">
     <mt-swipe  class="swipe" :show-indicators="false">
       <mt-swipe-item v-for="(item,index) in notesImg" :key="index">
-        <img :src="item.lg" />
+        <img :src="item.small" />
       </mt-swipe-item>
     </mt-swipe> 
     <!-- 返回按钮 -->
-    <router-link to>
-      <van-icon name="arrow-left" color="#fff" size="30" class="back-icon"
-      @click="$router.back(-1)"/>
-    </router-link>
+    <van-icon name="arrow-left" color="#fff" size="30" class="back-icon"
+    @click="$router.back(-1)"/>
+
   </div>  
 </template>
 
@@ -29,9 +28,7 @@ export default {
   methods:{
 
   },
-  created(){
 
-  }
 }
 </script>
 
