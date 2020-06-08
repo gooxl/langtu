@@ -1,6 +1,6 @@
 const state={    //储存共享数据
   name:window.localStorage.getItem('nowName') || '北京', //先获取本地存储的城市名，没有默认设为北京
-  id:window.localStorage.getItem('nowId') || 1
+  id:window.localStorage.getItem('nowId') 
 };
 const actions={  //数据需要异步操作时使用
 

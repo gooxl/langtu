@@ -46,7 +46,7 @@ export default {
       popPlace:[],  //热门去处数据
       tabList:[],   
       hotList:[],
-      prevCityId:-1  //上一次城市的id，用户判断城市用户是否切换城市
+      prevCityId:-1  //上一次城市的id，用于判断城市用户是否切换城市
     }
   },
   methods:{
@@ -57,22 +57,23 @@ export default {
     this.axios.get('http://127.0.0.1:3000/getGridInfo').then(res=>{
       this.gridInfo=res.data.data;
     })
+    
   },
   mounted(){  
     var cityId=this.$store.state.city.id;
-    if(this.prevCityId===cityId){return;} //如果上次城市id等于城市id，说明没有切换城市
+    this.axios.get('/qunarApi/hostList/cityid/'+cityId).then(res=>{
+      this.popPlace=res.data.hostList[0].sightGroup
+    })
+    if(this.prevCityId===cityId){return;} //如果上次城市id等于城市id，说明没有切换城市，以下代码不执行
 
     this.axios.get('/qunarApi/cityDetail/cityid/'+cityId).then(res=>{
-      // console.log(res.data.cityDetail)
       this.prevCityId=cityId;   
       this.swipeImg=res.data.cityDetail[0].cityDetail.banners
-      this.popPlace=res.data.cityDetail[0].cityDetail.hostList
       this.tabList=res.data.cityDetail[0].cityDetail.likeList
       this.hotList=res.data.cityDetail[0].cityDetail.weekendTrip
     })
-    this.axios.get('/qunarApi/hostList/cityid/'+cityId).then(res=>{
-      // console.log(res.data)
-    })
+
+
   }
 
 }

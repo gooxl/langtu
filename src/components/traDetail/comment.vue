@@ -6,7 +6,7 @@
     <!-- 弹出层 -->
     <van-popup v-model="show" position="bottom" :style="{ height:'30%'}">
       <van-field v-model="comment" rows="1" autosize type="textarea"
-        placeholder="对TA说点什么吧..." autofocus/>
+        placeholder="对TA说点什么吧..."/>
       <div class="sendBtn"  @click="sendComment">发送</div>
     </van-popup>
     <!-- 评论列表 -->
@@ -14,7 +14,8 @@
       <div class="body-top">
         <div class="header-left">
           <div class="avatar">
-            <img :src="item.avatar" alt="">
+            <img v-if="item.avatar" :src="item.avatar" alt="">
+            <img v-else src="@/assets/img/avatar.png" alt="">
           </div>
           <div class="user">
             <div>{{item.uname}}</div>
@@ -35,7 +36,7 @@
 <script>
 export default {
   inject:['reload'], //一：通过inject来注入变量,用于刷新页面
-  props:["commentList","nid"],
+  props:["commentList","cid"],
   data() {
     return {
       show: false,
@@ -45,7 +46,17 @@ export default {
   methods:{
     // 显示弹出层
     showPopup() {
-      this.show = true;
+      this.axios.get('http://127.0.0.1:3000/checkLogin').then(res=>{
+        if(res.data.code==-1){
+          this.$toast("请登录")
+          setTimeout(()=>{
+            this.$router.push('/login')
+          },500)
+        }else{
+          this.show = true;
+        }
+      })
+      
     },
     // 发表评论
     sendComment(){
@@ -56,10 +67,11 @@ export default {
         return;
       }
       var postData=this.qs.stringify({
-        nid:this.nid,
+        nid:this.cid,
+        uname:sessionStorage.getItem('uname'),
         comment:this.comment,
       });
-      this.axios.post("/addComment",postData).then(res=>{
+      this.axios.post("http://127.0.0.1:3000/addComment",postData).then(res=>{
         this.$toast(res.data.msg);
         this.comment=""; //发表完成后清空文本框
         this.reload();   //二：调用App.vue定义的reload()方法刷新页面
@@ -68,7 +80,7 @@ export default {
     },
     // 跳转评论详情
     jumpDetail(){
-      this.$router.push('/commentList?nid='+this.nid)
+      this.$router.push('/commentList?nid='+this.cid)
     }
   }
 }

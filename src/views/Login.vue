@@ -77,7 +77,8 @@ export default {
           this.$toast("登录成功");
           var uname=res.data.data[0].uname;
           sessionStorage.setItem('uname',uname);
-          this.$router.push('/mine') //跳转加登录前页面
+          // this.$router.push('/mine') //跳转加登录前页面
+          this.$router.go(-1) //跳转加登录前页面
         }
       })
     }

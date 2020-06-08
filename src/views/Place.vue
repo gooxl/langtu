@@ -1,8 +1,8 @@
 <template>
   <!-- 热门好去处 -->
   <div class="place">
-    <Header :pid="pid"></Header>
-    <waterFalls ></waterFalls>
+    <Header :title="title" :img="img"></Header>
+    <waterFalls :pid="pid"></waterFalls>
   </div>
 </template>
 
@@ -13,7 +13,8 @@ export default {
   data(){
     return{
       pid:this.$route.query.pid,
-
+      title:'',
+      img:''
     };
   },
   components:{
@@ -23,8 +24,18 @@ export default {
   methods:{
 
   },
-  mounted(){
-
+  created(){
+    var cityId=this.$store.state.city.id;
+    this.axios.get('/qunarApi/hostList/cityid/'+cityId).then(res=>{
+      var popPlace=res.data.hostList[0].sightGroup
+      for(var item of popPlace){
+        if(this.pid==item.id){
+          this.list=item;
+          this.title=item.title;
+          this.img=item.img
+        }
+      }
+    })
   }
   
 }

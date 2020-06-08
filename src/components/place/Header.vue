@@ -1,36 +1,31 @@
 <template>
   <div class="p-header" >
-    <div v-for="item of list" :key="item.id">
-      <!-- 头部图片 -->
-      <img :src="item.img" alt="" class="imgBox">
-      <!-- 返回按钮 -->
-      <router-link to="/">
-        <van-icon name="arrow-left" color="#fff" size="30" class="back-icon"/>
-      </router-link>
-      <div class="textBox">
-        <div class="title">{{item.pname}}</div>
-        <span class="desc">疫情后我们一起旅行吧，
-          去和错过的春天重逢和许久未见的老友赏花踏青；去远方看看那些已经复苏的城市🍃5月，
-          一切都刚刚开始～</span>
-      </div>
-      <div class="placeholder"></div>
+    <!-- 头部图片 -->
+    <img :src="this.img" alt="" class="imgBox">
+    <!-- 返回按钮 -->
+    <router-link to="/">
+      <van-icon name="arrow-left" color="#fff" size="30" class="back-icon"/>
+    </router-link>
+    <div class="textBox">
+      <div class="title">{{this.title}}</div>
+      <span class="desc">疫情后我们一起旅行吧，
+        去和错过的春天重逢和许久未见的老友赏花踏青；去远方看看那些已经复苏的城市🍃5月，
+        一切都刚刚开始～</span>
     </div>
-  </div>      
+    <div class="placeholder"></div>
+  </div>
 </template>
 
 <script>
 export default {
   data(){
     return {
-      list:[],
+  
     };
   },
-  props:["pid"],    //接收父组件place.vue的数据
+  props:["title","img"],    //接收父组件place.vue的数据
   created(){
-    this.axios.get('/getHotplace?pid='+this.pid).then(res=>{
-      this.list=res.data.data;
-      console.log(this.list)
-    })
+
   }
 }
 </script>

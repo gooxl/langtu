@@ -13,7 +13,8 @@
       <div class="body-top">
         <div class="header-left">
           <div class="avatar">
-            <img :src="item.avatar" alt="">
+            <img v-if="item.avatar" :src="item.avatar" alt="">
+            <img v-else src="@/assets/img/avatar.png" alt="">
           </div>
           <div class="user">
             <div>{{item.uname}}</div>
@@ -40,7 +41,7 @@ export default {
   },
   methods:{
     getComment(){
-      this.axios.get('/getComment?nid='+this.nid).then(res=>{
+      this.axios.get('http://127.0.0.1:3000/getComment?nid='+this.nid).then(res=>{
         this.commentList=res.data.data;
         console.log(this.commentList)
       })
