@@ -1,44 +1,45 @@
 <template>
   <!-- 瀑布start -->
   <div class="water-fall" >
-    <waterfall :col="col" :data="data" @loadmore="loadmore" >
-      <template> 
-        <div class="fall-item" v-for="(item,index) in data" :key="index">
-        <router-link :to="`/tradetail?nid=${item.id}`">
-          <div class="fall-img">
-            <img  v-lazy="item.lg" alt="加载错误">
-            <div class="item-location">
-              <van-icon name="location-o" />
-              <span>{{item.city}}·{{item.position}}</span>
-            </div>
-          </div>
-          <div class="item-body">
-            <div class="item-title">{{item.content}}</div>
-            <div class="item-footer">
-              <div class="item-footer-left">
-                <div v-if="item.avatar" class="avatar"
-                :style="{backgroundImage : `url(${item.avatar})`}"
-                ></div>
-                <div class="name">{{item.uname}}</div>
-              </div>
-              <div class="like">
-                <van-icon name="like-o"/>
-                <span>{{item.likes}}</span>
+    <!-- loading -->
+    <loading v-if="loading"/>
+    <waterfall v-else :col="col" :data="data" @loadmore="loadmore" >
+      <template > 
+        <div class="fall-item" v-for="(item,index) in data" :key="index" v-show="item.comment_item.comment_img[0]">
+          <router-link tag="div" :to="`/comdetail?pid=${item.id}&cid=${item.comment_num}`" >
+            <div class="fall-img" >
+              <img  v-lazy="item.comment_item.comment_img[0]" alt="加载错误">
+              <div class="item-location">
+                <van-icon name="location-o" />
+                <span>{{item.title}}</span>
               </div>
             </div>
-          </div>
-        </router-link>
+            <div class="item-body">
+              <div class="item-title">{{item.comment_item.comment_text}}</div>
+              <div class="item-footer">
+                <div class="item-footer-left">
+                  <div v-if="item.img" class="avatar"
+                  :style="{backgroundImage : `url(${item.img})`}"
+                  ></div>
+                  <div class="name">{{item.comment_item.name}}</div>
+                </div>
+                <div class="like">
+                  <van-icon name="like-o"/>
+                  <span>{{item.like_num}}</span>
+                </div>
+              </div>
+            </div>
+          </router-link>
         </div>
       </template>
     </waterfall>
-    <!-- loading -->
-    <loading :show="loading"/>
+
     </div><!-- 瀑布end -->
   </div>
 </template>
 
 <script>
-import loading from "./loading";
+import loading from "@/components/Loading/loading2";
 export default {
   name:"travels-waterFalls",
   components: {
@@ -46,10 +47,10 @@ export default {
   },
   data() {
     return {
+      nowcity:this.$store.state.city.name,
       data: [],
       col: 2,  //列数
-      loading: false,  //加载状态
-
+      loading: true,  //加载状态
     };
   },
   computed: {
@@ -65,28 +66,21 @@ export default {
       this.col = col;
     },
     loadmore() {
-      this.loading = true;
-      setTimeout(() => {
-        this.data = this.data.concat(this.data);
-        this.loading = false;
-      }, 100);
-    },
-    loadMore(){   //获取内容
-      this.axios.get('/getTraNotes').then(res=>{
-        this.data=res.data.data;
+      this.axios.get('/qunarApi/hostList/cityname/'+this.nowcity).then(res=>{
+      // console.log(res.data)
+      var hostList= this.data.concat(res.data.hostList[0].sightGroup)
+      this.data=hostList;
+      this.loading=false
       })
+      console.log(this.data)
     },
     jump(e){
       var id=e.target.dataset.id;
-      console.log(e)
       this.$router.push('/tradetail?id='+id);
     }
   },
-  created() {
-    this.loadMore();
-
-
-    
+  mounted() {
+    this.loadmore();
   }
 };
 </script>

@@ -9,7 +9,7 @@
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header> 
     <!-- 产品信息 -->
-    <orderInfo :list="productInfo" >
+    <orderInfo :list="productInfo" :img="img">
     <!--在子组件标签中创建一张卡片用slot属性绑定子组件对应名字，再用{{}}绑定要传给子组件的数据 -->
       <template slot="date">{{date}}</template>
       <template slot="count">{{count}}</template>
@@ -43,6 +43,7 @@ export default {
       count:this.$route.query.count,  //出行人数
       date:this.$route.query.date,    //出生日期
       productInfo: {},                //产品数据
+      img:"",     
       pname:"",
       price:0,
       uname:"",  
@@ -55,11 +56,20 @@ export default {
   },
   methods:{
     loadMore(){ //加载产品数据
-      this.axios.get('http://127.0.0.1:3000/getProductInfo?pid='+this.pid).then(res=>{
-        this.productInfo=res.data.data;
-        this.pname=res.data.data[0].title;
-        this.price=res.data.data[0].price;
-      })
+      if(this.pid.length<5){
+        this.axios.get('http://127.0.0.1:3000/getProductInfo?pid='+this.pid).then(res=>{
+          this.productInfo=res.data.data;
+          this.pname=res.data.data[0].title;
+          this.price=res.data.data[0].price;
+        });
+      }else{
+        this.axios.get('/qunarApi/addrDetail/id/'+this.pid).then(res=>{
+          this.productInfo=res.data.addrDetail[0].ticketRecommend.slice(0,1)
+          this.pname=this.productInfo[0].title
+          this.price=this.productInfo[0].price
+          this.img=res.data.addrDetail[0].imgbg
+        })
+      }
     },
     telChange(){
       if(!(/^1[3456789]\d{9}$/.test(this.phone))){
@@ -76,8 +86,8 @@ export default {
       }
     },
     onSubmit(){
-      if(!this.phone){
-        this.$toast("请输入手机号");
+      if(!(/^1[3456789]\d{9}$/.test(this.phone))){
+        this.$toast("请输入正确的手机号");
         return;
       }
       if(!this.uname){
@@ -88,7 +98,6 @@ export default {
         this.$toast("请输入邮箱")
         return;
       }
- 
       var remarks=this.remarks;
       var pid=parseInt(this.pid);
       var userName=this.uname;
@@ -113,7 +122,7 @@ export default {
       // }
       // console.log(obj)
       // 13232323232
-      this.axios.get(`/addOrder?pid=${pid}&pname=${pname}&userName=${userName}&phone=${phone}&email=${email}&peopleCount=${peopleCount}&travelDate=${travelDate}&price=${price}&totalPrice=${totalPrice}&remarks=${remarks}`)
+      this.axios.get(`http://127.0.0.1:3000/addOrder?pid=${pid}&pname=${pname}&userName=${userName}&phone=${phone}&email=${email}&peopleCount=${peopleCount}&travelDate=${travelDate}&price=${price}&totalPrice=${totalPrice}&remarks=${remarks}`)
       // this.axios.get("/addOrder",{parmas:obj})
       .then(res=>{
         if(res.data.code==-1){
@@ -124,13 +133,18 @@ export default {
         }else if(res.data.code==-2){
           this.$toast("提交失败")
         }else{
-          this.$toast("提交成功")
+          this.$messagebox("提交成功！","可在【我的订单】查看。正为你跳转首页").then(action=>{
+            this.$router.push('/')
+        })
+
+
         }
       })
     },
   },
-  created(){
+  mounted(){
     this.loadMore();
+    
   }
 
 }

@@ -14,7 +14,8 @@
             <div class="title">{{item.title}}</div>
             <div class="list-content-right-middle" >
               <!--将keyword的字符串切割再遍历-->
-              <van-tag color="#ffe1e1" text-color="red" v-for="kw of item.keyword.split('、')">{{kw}}</van-tag>
+              <van-tag color="#ffe1e1" text-color="red" 
+              v-for="(kw,i) in item.keyword.split('、')" :key="i">{{kw}}</van-tag>
             </div>
             <div class="list-content-right-bottom">
               <div class="list-content-comment">

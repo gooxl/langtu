@@ -1,7 +1,8 @@
 <template>
   <div class="order-info">
     <div class="header" v-for="item of list" :key="item.pid">
-      <img :src="`http://127.0.0.1:3000/${item.md}`"/>
+      <img v-if="item.md" :src="`http://127.0.0.1:3000/${item.md}`"/>
+      <img v-else :src="img" alt="">
       <div class="info-right">
         <div class="title">{{item.title}}</div>
         <div class="price">
@@ -25,7 +26,7 @@
 
 <script>
 export default {
-  props:["list"],
+  props:["list","img"],
   data() {
     return {
 

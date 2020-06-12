@@ -1,10 +1,12 @@
 <template>
-  <!-- 产品页 -->
-  <div class="scenicSpot">
+  <!-- 景点详情页 -->
+  <div class="addrDetail">
     <!-- 轮播图 -->
-    <swipe :imgs="productImg"></swipe>
+    <swipe :imgs="img"></swipe>
     <!-- 产品信息 -->
-    <baseDesc :list="productInfo"></baseDesc>
+    <baseInfo :list="productInfo">
+      <template slot="address">{{address}}</template>  
+    </baseInfo>
     <!-- 日历 -->
     <div class="calendar">
       <van-cell title="选择日期" :value="date" @click="show = true" is-link/>
@@ -30,41 +32,29 @@
 
 <script>
 import swipe from "@/components/product/swipe"
-import baseDesc from "@/components/product/base-desc"
+import baseInfo from "@/components/addr/baseInfo"
 import info from "@/components/product/info"
 
 export default {
-  name:"product",
+  name:"addrDetail",
   components:{
     swipe,
-    baseDesc,
+    baseInfo,
     info,
   },
-  props:['pid'], //方式二：props属性接收，发送时写法/pid (路由要添加props属性)
   data(){
     return {
-      // pid:this.$route.query.pid,  //方式一：查询字符串?pid=...传递
+      pid:this.$route.query.pid,  //产品id
       productInfo:[],  //产品数据
+      address:[],      
       price:0,         //产品价钱
-      productImg:[],   //产品图片
+      img:[],   //产品图片
       count:1,         //出行人数
       date: '',        //日期
       show: false,     //日历显示状态
     };
   },
   methods:{
-    getProductInfo(){ //获取产品数据
-      this.axios.get('http://127.0.0.1:3000/getProductInfo?pid='+this.pid).then(res=>{
-        this.productInfo=res.data.data;
-        // console.log(this.productInfo)
-        this.price=res.data.data[0].price;
-      })
-    },
-    getImg(){ //获取轮播图
-      this.axios.get('http://127.0.0.1:3000/getProductImg?pid='+this.pid).then(res=>{
-        this.productImg=res.data.data;
-      })
-    },
     formatter(day) { //日历方案
       day.bottomInfo="￥"+this.price
       return day;
@@ -82,7 +72,6 @@ export default {
     onClickStar(){    //点击收藏图标
       this.$toast('收藏成功')
     },
-
     onClickButton(){  //点击购买图标
       if(!this.date){
         this.$toast('请选择出行日期');
@@ -103,9 +92,14 @@ export default {
       
   },
   mounted(){
-    this.getProductInfo();
-    this.getImg();
-    console.log(this.pid)
+    this.axios.get('/qunarApi/addrDetail/id/'+this.pid).then(res=>{
+      this.img.push(res.data.addrDetail[0].imgbg)
+      this.address=res.data.addrDetail[0].baseinfo.address
+      this.productInfo=res.data.addrDetail[0].ticketRecommend
+      this.price=this.productInfo[0].price
+      // console.log(this.address)
+    })
+
   }
 
 }

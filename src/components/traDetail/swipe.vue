@@ -3,7 +3,8 @@
   <div class="app-swipe">
     <mt-swipe  class="swipe" :show-indicators="false">
       <mt-swipe-item v-for="(item,index) in notesImg" :key="index">
-        <img :src="item.small" />
+        <img v-if="typeof item=='string'"  :src="item" />
+        <img v-else :src="item.small" />
       </mt-swipe-item>
     </mt-swipe> 
     <!-- 返回按钮 -->
@@ -20,15 +21,14 @@ export default {
   props:["notesImg"],
   data(){
     return {
-
-     
-
     }
   },
   methods:{
 
   },
-
+  mounted(){
+    console.log(this.notesImg)
+  }
 }
 </script>
 

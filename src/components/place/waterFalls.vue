@@ -57,6 +57,7 @@ export default {
       data: [],
       col: 2,  //列数
       loading: true,  //加载状态
+      pageNum:1,
       
     };
   },
@@ -73,7 +74,6 @@ export default {
       this.col = col;
     },
     loadmore() {
-      this.loading = true;
       setTimeout(() => {
         this.data = this.data.concat(this.data);
         this.loading = false;
@@ -83,6 +83,7 @@ export default {
       this.axios.get('/qunarApi/comments?sightId='+this.pid).then(res=>{
         if(res.data.answer.status==200){
           this.data=res.data.answer.body.data.commentList
+          // console.log(this.data)
           this.loading = false;
         }
       })

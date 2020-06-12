@@ -7,8 +7,8 @@
     <van-tabs v-model="active" color="#ffd90a" animated 
     swipeable sticky :offset-top="50">
       <van-tab title="周边" title-style="font-weight:bolder;font-size:1rem;">
-      <!-- 瀑布流主体 -->
-      <waterFalls></waterFalls>
+        <!-- 瀑布流主体 -->
+        <waterFalls></waterFalls>
       </van-tab>
       <van-tab title="推荐" title-style="font-weight:bolder;font-size:1rem">
         
@@ -33,7 +33,7 @@
 
 <script>
 // 引入组件
-import waterFalls from "../components/travel/waterFalls"  
+import waterFalls from "@/components/travel/waterFalls"  
 import tabbar from "../components/home/Tabbar"  
 import search from "../components/travel/Search" 
 

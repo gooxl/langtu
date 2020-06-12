@@ -9,7 +9,9 @@ import recommend from '@/views/Play-recommend'
 import product from '@/views/Product/Product'   
 import placeOrder from '../views/PlaceOrder'   
 import productList from '../views/Product/productList'  
+import comDetail from '../views/comDetail'  
 import traDetail from '../views/traDetail'  
+import addrDetail from '../views/addrDetail'  
 import CommentList from '../views/CommentList'  
 import Login from '../views/Login'  
 import Regist from '../views/Regist'  
@@ -28,8 +30,11 @@ Vue.use(VueRouter)
   {path: "/place",component: place},
   {path: "/recommend",component: recommend},
   {path: "/placeOrder",component: placeOrder},
-  {path: "/product/:pid",component: product,props:true},
-  {path: "/tradetail",component: traDetail,},
+  {path: "/product/:pid",component: product,props:true}, //方式二，使用props属性接收pid
+  // {path: "/product",component: product},
+  {path: "/tradetail",component: traDetail},
+  {path: "/comdetail",component: comDetail},
+  {path: "/addrDetail",component: addrDetail},
   {path: "/commentList",component: CommentList},
   {path: "/login",component: Login},
   {path: "/regist",component: Regist},

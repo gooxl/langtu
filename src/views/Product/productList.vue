@@ -5,8 +5,8 @@
     <div  class="placeholder"></div>
       <!-- 头 -->
       <mt-header  class="pro-header" fixed >
-        <router-link to="/" slot="left">
-          <mt-button icon="back" ></mt-button>
+        <router-link to slot="left">
+          <mt-button icon="back" @click="$router.back(-1)"></mt-button>
         </router-link>
       </mt-header> 
       <!-- 商品列表 -->
