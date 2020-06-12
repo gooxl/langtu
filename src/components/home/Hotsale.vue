@@ -42,13 +42,14 @@ export default {
 /* 父元素 */
 .hotsale{
   margin:.5rem;
-  text-align: left;
+  
 }
 .hs-header{
   font-size: 1.2rem;
   font-weight: bold;
 }
 .hs-content{
+  text-align: left;
   padding-top:.8rem;
   padding-bottom:.8rem;
   border-bottom:1px solid #f5f5f5;

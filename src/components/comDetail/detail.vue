@@ -4,18 +4,18 @@
       <div class="header">
         <div class="header-left">
           <div class="avatar">
-            <img :src="this.list.headImg" alt="">
+            <img :src="this.list.avatar" alt="">
           </div>
           <div>
-            <span>{{this.list.date}}</span>
-            <div>{{this.list.author}}</div>
+            <span >{{this.list.date}}</span>
+            <div >{{this.list.name}}</div>
           </div>
         </div>
         <!-- 评分 -->
-        <div class="score">
+        <!-- <div class="score">
           <van-rate v-model="this.list.score" allow-half void-icon="star" 
           void-color="#eee" readonly :size="18"/>
-        </div>
+        </div> -->
       </div>
       <!-- 定位 -->
       <div class="opsition">
@@ -24,19 +24,21 @@
           <span>{{$store.state.city.name}}</span>
         </div>
         <div @click="jumpAddrDetail">
-          <span>{{this.list.sightName}}</span>
+          <slot name="title"></slot>
+          <span>{{this.list.title}}</span>
           <van-icon name="arrow" />
         </div>
       </div>
       <!-- 内容 -->
-      <div class="content">{{this.list.content}}</div>
+      <div class="content">{{this.list.comment_text}}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props:["list","pid"],
+  name:"com_detail",
+  props:["list","pid","avatar"],
   methods:{
     jumpAddrDetail(){
       this.$router.push('/addrDetail?pid='+this.pid)

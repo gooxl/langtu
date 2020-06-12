@@ -1,7 +1,7 @@
 <template>
   <div class="traDetail">
     <swipe :notesImg="notesImg"></swipe>
-    <detail :list="list" >
+    <detail :list="list" :pid="pid">
       <!-- <template slot="author">{{author}}</template> -->
     </detail>
     <comment :commentList="commentList" :cid="cid"></comment>
@@ -15,6 +15,7 @@ import detail from "@/components/traDetail/detail"
 import comment from "@/components/traDetail/comment"
 import loading from "@/components/Loading/loading2"
 export default {
+  name:"traDetail",
   components:{
     swipe,
     detail,
@@ -25,6 +26,7 @@ export default {
     return{
       cid:this.$route.query.cid,
       pid:this.$route.query.pid,
+      nowCity:this.$store.state.city.name,
       notesImg:[],   //游记图片
       list:[],   //游记内容
       commentList:[],
@@ -45,17 +47,31 @@ export default {
     //   })
     // },
     loadMore(){   //获取内容
-      this.axios.get('/qunarApi/comments?sightId='+this.pid).then(res=>{
-        var commentList=res.data.answer.body.data.commentList
-        // console.log(commentList)
-        for(var i=0; i<commentList.length; i++){
-          if(commentList[i].commentId==this.cid){
-            this.notesImg=commentList[i].imgs;
-            this.list=commentList[i];
-            this.loading = false;
-        }
-        }
-      })
+      if(this.pid && this.cid){
+        this.axios.get('/qunarApi/comments?sightId='+this.pid).then(res=>{
+          var commentList=res.data.answer.body.data.commentList
+          for(var i=0; i<commentList.length; i++){
+            if(commentList[i].commentId==this.cid){
+              this.notesImg=commentList[i].imgs;
+              this.list=commentList[i];
+              // console.log(this.list)
+              this.loading = false;
+            }
+          }
+        })
+      }else if(!this.cid){
+        this.axios.get('/qunarApi/hostList/cityname/'+this.nowCity).then(res=>{
+          var hostList=res.data.hostList[0].sightGroup
+          // console.log(hostList)
+          for(var i=0;i<hostList.length;i++){
+            if(hostList[i].id==this.pid){
+              this.list=hostList[i];
+              this.notesImg=hostList[i].comment_item.comment_img
+              this.loading = false;
+            }
+          }
+        })
+      }
     },
     // 获取评论内容
     getComment(){
@@ -67,6 +83,11 @@ export default {
   created(){
     this.loadMore();
     this.getComment();
+  
+
+  },
+  mounted(){
+
   }
 
 }

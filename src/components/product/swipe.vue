@@ -3,14 +3,16 @@
   <div class="app-swipe">
     <!-- 头部两按钮 -->
     <div class="header-btn">
-      <router-link to="/productList">
-        <van-icon name="arrow-left" color="#fff" size="30" class="btn-left"/>
+      <router-link to >
+        <van-icon name="arrow-left" color="#fff" size="30" class="btn-left" 
+        @click="$router.back(-1)"/>
       </router-link>
       <van-icon name="ellipsis" color="#fff" size="30" class="btn-right"/>
     </div>
     <mt-swipe class="swipe" >
       <mt-swipe-item v-for="(item,index) in imgs" :key="index">
-        <img :src="'http://127.0.0.1:3000/'+item.md" />
+        <img v-if="item.md" :src="'http://127.0.0.1:3000/'+item.md" />
+        <img v-else="item" :src="item" />
       </mt-swipe-item>
     </mt-swipe> 
     <div class="swiper-footer"></div>

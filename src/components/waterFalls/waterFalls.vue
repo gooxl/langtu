@@ -32,13 +32,13 @@
       </template>
     </waterfall>
     <!-- loading -->
-    <loading :show="loading"/>
+    <loading v-show="loading"/>
     </div><!-- 瀑布end -->
   </div>
 </template>
 
 <script>
-import loading from "./loading";
+import loading from "@/components/Loading/loading2";
 export default {
   name:"travels-waterFalls",
   props:["list"],

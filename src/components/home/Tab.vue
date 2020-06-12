@@ -4,8 +4,8 @@
     <van-tabs v-model="active" color="#ffd90a" animated swipeable>
       <!-- 热门景点 -->
       <van-tab title="热门推荐" title-style="font-weight:bolder;font-size:1rem">
-        <router-link tag="div" class="tab-content" to="/product"
-        v-for="item of tabList.slice(0,4)" :key="item.id">
+        <router-link tag="div" v-for="item of tabList.slice(0,4)" :key="item.id"
+        :to="'/addrDetail?pid='+item.id" class="tab-content">
           <img class="tab-content-img" :src="item.img" />
           <div class="tab-content-right">
             <div class="title">{{item.title}}</div>
@@ -38,7 +38,7 @@
         </div>
       </van-tab>
       <van-tab title="人气景点" title-style="font-weight:bolder;font-size:1rem">
-        <router-link tag="div" class="tab-content" to="/product"
+        <router-link tag="div" class="tab-content" :to="'/addrDetail?pid='+item.id"
         v-for="item of tabList.slice(4,8)" :key="item.id">
           <img class="tab-content-img" :src="item.img" />
           <div class="tab-content-right">
@@ -73,7 +73,7 @@
 
       </van-tab>
       <van-tab title="特色商圈" title-style="font-weight:bolder;font-size:1rem">
-        <router-link tag="div" class="tab-content" to="/product"
+        <router-link tag="div" class="tab-content" :to="'/addrDetail?pid='+item.id"
         v-for="item of tabList.slice(8,12)" :key="item.id">
           <img class="tab-content-img" :src="item.img" />
           <div class="tab-content-right">
