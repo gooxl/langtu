@@ -18,11 +18,12 @@ export default {
 <style scoped>
 /* 宫格样式 */
 .grid{
+
   overflow-x:auto ;
   white-space:nowrap;
 }
 .grid-item{
-  padding:.2rem .3rem .6rem .3rem;
+  padding:.5rem .3rem .6rem .3rem;
   width:20%;
   display: inline-block;
 

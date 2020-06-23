@@ -49,7 +49,7 @@ export default {
       var uname=sessionStorage.getItem('uname')
       this.axios.get('http://127.0.0.1:3000/getUser?uname='+uname).then(res=>{
         this.list=res.data.data;
-        console.log(this.list)
+        // console.log(this.list)
       })
     },
     jumpAdmin(){

@@ -2,16 +2,16 @@
   <!-- 旅拍页 -->
   <div class="traval">
     <!-- 搜索框 -->
-    <search></search>
+    <!-- <search></search> -->
     <!-- tabs -->
     <van-tabs v-model="active" color="#ffd90a" animated 
-    swipeable sticky :offset-top="50">
+    swipeable sticky :offset-top="0">
       <van-tab title="周边" title-style="font-weight:bolder;font-size:1rem;">
         <!-- 瀑布流主体 -->
         <waterFalls></waterFalls>
       </van-tab>
       <van-tab title="推荐" title-style="font-weight:bolder;font-size:1rem">
-        
+        <waterFalls></waterFalls>
       </van-tab>
       <van-tab title="国内" title-style="font-weight:bolder;font-size:1rem">
         

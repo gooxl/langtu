@@ -35,14 +35,13 @@ export default {
   methods:{
     loadMore(){   //获取内容
       this.axios.get('/qunarApi/hostList/cityname/'+this.nowCity).then(res=>{
-
         var hostList=res.data.hostList[0].sightGroup
         for(var i=0;i<hostList.length;i++){
           if(hostList[i].id==this.pid){
             this.list=hostList[i].comment_item;
             this.list["title"]=hostList[i].title
             this.list["avatar"]=hostList[i].img
-            // console.log(this.list)
+            console.log(this.list)
             this.notesImg=hostList[i].comment_item.comment_img
             this.loading = false;
           }

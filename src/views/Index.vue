@@ -41,6 +41,7 @@ export default {
    },
    data() {
     return {
+      nowcity:this.$store.state.city.name,
       swipeImg:[],   //轮播图
       gridInfo:[],  //宫格数据
       popPlace:[],  //热门去处数据
@@ -61,18 +62,18 @@ export default {
   },
   mounted(){  
     var cityId=this.$store.state.city.id;
-    this.axios.get('/qunarApi/hostList/cityid/'+cityId).then(res=>{
+    this.axios.get('/qunarApi/hostList/cityname/'+this.nowcity).then(res=>{
       this.popPlace=res.data.hostList[0].sightGroup
+      console.log(this.popPlace)
+  
     })
     if(this.prevCityId===cityId){return;} //如果上次城市id等于城市id，说明没有切换城市，以下代码不执行
-
-    this.axios.get('/qunarApi/cityDetail/cityid/'+cityId).then(res=>{
+    this.axios.get('/qunarApi/cityDetail/cityname/'+this.nowcity).then(res=>{
       this.prevCityId=cityId;   
       this.swipeImg=res.data.cityDetail[0].cityDetail.banners
       this.tabList=res.data.cityDetail[0].cityDetail.likeList
       this.hotList=res.data.cityDetail[0].cityDetail.weekendTrip
     })
-
 
   }
 
@@ -80,5 +81,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
