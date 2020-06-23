@@ -53,6 +53,7 @@ export default {
           for(var i=0; i<commentList.length; i++){
             if(commentList[i].commentId==this.cid){
               this.notesImg=commentList[i].imgs;
+
               this.list=commentList[i];
               // console.log(this.list)
               this.loading = false;

@@ -13,6 +13,7 @@ export default {
   data(){
     return{
       pid:this.$route.query.pid,
+      nowcity:this.$store.state.city.name,
       title:'',
       img:''
     };
@@ -25,8 +26,7 @@ export default {
 
   },
   created(){
-    var cityId=this.$store.state.city.id;
-    this.axios.get('/qunarApi/hostList/cityid/'+cityId).then(res=>{
+    this.axios.get('/qunarApi/hostList/cityname/'+this.nowcity).then(res=>{
       var popPlace=res.data.hostList[0].sightGroup
       for(var item of popPlace){
         if(this.pid==item.id){

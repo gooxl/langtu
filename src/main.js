@@ -21,13 +21,13 @@ Vue.prototype.qs=qs; //配置到Vue的原型中
 import {Tabbar,TabbarItem,Icon,Grid,GridItem,Tab,Tabs,Tag,Search
 ,NavBar,Calendar,Cell,CellGroup,Stepper,SubmitBar,GoodsAction, GoodsActionIcon,
  GoodsActionButton,List,Popup,Field,Button,Divider,Rate,PullRefresh,ActionSheet,
-} from 'vant';
+Swipe, SwipeItem,Form,Uploader} from 'vant';
 import "vant/lib/index.css";
 Vue.use(Tabbar).use(TabbarItem).use(Icon).use(Grid).use(GridItem).use(Tab)
 .use(Tabs).use(Tag).use(Search).use(NavBar).use(Calendar).use(Cell).use(CellGroup)
 .use(Stepper).use(SubmitBar).use(GoodsAction).use(GoodsActionIcon).use(GoodsActionButton)
 .use(List).use(Popup).use(Field).use(Button).use(Divider).use(Rate).use(PullRefresh)
-.use(ActionSheet);
+.use(ActionSheet).use(Swipe).use(SwipeItem).use(Form).use(Uploader);
 /* 瀑布*/
 import waterfall from 'vue-waterfall2'
 Vue.use(waterfall)

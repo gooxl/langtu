@@ -4,10 +4,11 @@
       <div class="header">
         <div class="header-left">
           <div class="avatar">
-            <img :src="this.list.avatar" alt="">
+            <img v-if="this.list.avatar" :src="this.list.avatar" alt="">
+            <img v-else src="@/assets/img/avatar.png" alt="" class="avatar">
           </div>
           <div>
-            <span >{{this.list.date}}</span>
+            <span >{{this.list.date | ct}}</span>
             <div >{{this.list.name}}</div>
           </div>
         </div>
@@ -21,16 +22,19 @@
       <div class="opsition">
         <div>
           <van-icon name="location" />
-          <span>{{$store.state.city.name}}</span>
+          <span v-if="this.list.city">{{this.list.city}}</span>
+          <span v-else>{{$store.state.city.name}}</span>
         </div>
         <div @click="jumpAddrDetail">
           <slot name="title"></slot>
-          <span>{{this.list.title}}</span>
+          <span v-if="this.list.title">{{this.list.title}}</span>
+          <span v-else>{{this.list.position}}</span>
           <van-icon name="arrow" />
         </div>
       </div>
       <!-- 内容 -->
-      <div class="content">{{this.list.comment_text}}</div>
+      <div class="content" v-if="this.list.comment_text">{{this.list.comment_text}}</div>
+      <div class="content" v-else>{{this.list.content}}</div>
     </div>
   </div>
 </template>

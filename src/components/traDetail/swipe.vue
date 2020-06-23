@@ -4,7 +4,8 @@
     <mt-swipe  class="swipe" :show-indicators="false">
       <mt-swipe-item v-for="(item,index) in notesImg" :key="index">
         <img v-if="typeof item=='string'"  :src="item" />
-        <img v-else :src="item.small" />
+        <img v-else-if="item.big" :src="item.big" />
+        <img v-else :src="item.lg" />
       </mt-swipe-item>
     </mt-swipe> 
     <!-- 返回按钮 -->

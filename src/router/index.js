@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Index from '../views/Index'
 import NotFound from '../views/NotFound'
 import travels from '../views/Travels'  
-import mine from '@/views/Mine'   //也可以使用@表示src目录
+import mine from '@/views/Mine/Mine'   //也可以使用@表示src目录
 import place from '@/views/Place'   
 import recommend from '@/views/Play-recommend'   
 import product from '@/views/Product/Product'   
@@ -16,7 +16,11 @@ import CommentList from '../views/CommentList'
 import Login from '../views/Login'  
 import Regist from '../views/Regist'  
 import Admin from '../views/Admin'  
+import MyOrder from '@/views/Mine/MyOrder'  
+import orderDetail from '@/views/Mine/orderDetail'  
+import notesDetail from '@/views/Mine/notesDetail'  
 import City from '@/components/city/City'  
+
 
 
 
@@ -40,7 +44,12 @@ Vue.use(VueRouter)
   {path: "/regist",component: Regist},
   {path: "/city",component: City},
   {path: "/admin",component: Admin},
+  {path: "/myOrder",component:MyOrder},
+  {path: "/orderDetail",component:orderDetail},
+  {path: "/notesDetail",component:notesDetail},
   {path: "/*",component:NotFound },
+  
+  
 
 ]
 

@@ -106,7 +106,7 @@ export default {
   position: relative;
 }
 /*图片*/
-.fall-item img{
+.fall-img img{
   width: 100%;
   height: auto;
 }
